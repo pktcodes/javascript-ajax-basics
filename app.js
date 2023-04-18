@@ -7,9 +7,13 @@ const url = "./api/people.json";
 const btn = document.querySelector(".btn");
 
 btn.addEventListener("click", async () => {
-  const response = await fetch(url);
-  const data = await response.json();
-  displayPeople(data);
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    displayPeople(data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 const displayPeople = (people) => {
@@ -23,3 +27,15 @@ const displayPeople = (people) => {
   element.innerHTML = displayData;
   document.body.appendChild(element);
 };
+
+// console.log(random);
+
+// Here "catch" will not block running the app like the above console statement does as random is not defined
+try {
+  console.log("hello");
+  console.log(random);
+} catch (error) {
+  console.log(error);
+}
+
+console.log("hello");
