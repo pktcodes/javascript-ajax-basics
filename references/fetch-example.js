@@ -6,10 +6,14 @@ const url = "./api/people.json";
 
 const btn = document.querySelector(".btn");
 
-btn.addEventListener("click", async () => {
-  const response = await fetch(url);
-  const data = await response.json();
-  displayPeople(data);
+btn.addEventListener("click", () => {
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data);
+      displayPeople(data);
+    })
+    .catch((error) => console.log(error));
 });
 
 const displayPeople = (people) => {
