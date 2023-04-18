@@ -4,20 +4,26 @@
 
 const url = "./api/people.json";
 
-/* Fetch is a builtin functionality that makes to do less work for setup so we can start implementating */
-fetch(url)
-  .then((response) => console.log(response))
-  .then((data) => console.log(data))
-  .catch((error) => console.log(error));
+const btn = document.querySelector(".btn");
 
-const promise = new Promise((resolve, reject) => {
-  let value = false;
-  if (value) {
-    resolve([1, 2, 5]);
-  } else {
-    reject(new Error(`The value is ${value}`));
-  }
-  return promise;
+btn.addEventListener("click", () => {
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data);
+      displayPeople(data);
+    })
+    .catch((error) => console.log(error));
 });
 
-promise.then((data) => console.log(data)).catch((error) => console.log(error));
+const displayPeople = (people) => {
+  const displayData = people
+    .map((person) => {
+      const { name } = person;
+      return `<p>${name}</p>`;
+    })
+    .join("");
+  const element = document.createElement("div");
+  element.innerHTML = displayData;
+  document.body.appendChild(element);
+};
